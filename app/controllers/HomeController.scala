@@ -19,7 +19,7 @@ class HomeController @Inject()(cc: ControllerComponents) (implicit assetsFinder:
    * a path of `/`.
    */
   def index = Action {
-    Ok(views.html.index("MTSWEB application."))
+    Ok(views.html.index("MTSWEB v2. application."))
   }
 
 }
