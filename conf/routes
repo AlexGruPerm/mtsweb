@@ -5,4 +5,6 @@ GET     /                           controllers.HomeController.index
 GET     /count                      controllers.CountController.count
 GET     /message                    controllers.AsyncController.message
 GET     /bars                       controllers.BarsController.bars
++ nocsrf
+POST    /bars                       controllers.BarsController.newTask
 GET     /assets/*file               controllers.Assets.versioned(file)

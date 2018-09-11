@@ -1,4 +1,4 @@
-@(testmessage: String)(implicit assetsFinder: AssetsFinder)
+@(testmessage: String,tasks: List[Task])(implicit assetsFinder: AssetsFinder)
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +11,23 @@
      <article>
       <h2>@testmessage</h2>
      </article>
+      <br><br>
+        <div>
+          <form action="@routes.BarsController.newTask()" method="post">
+            <input type="text" name="taskName" placeholder="Add a new Task" required>
+            <input type="submit" value="Add">
+          </form>
+        </div>
+            <div>
+              <ul>
+                @tasks.map { task =>
+                <li>
+                 @task.name
+                </li>
+                }
+              </ul>
+             </div>
+     <hr>
     </body>
 </html>
 
