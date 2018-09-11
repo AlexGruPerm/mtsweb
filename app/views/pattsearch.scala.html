@@ -1,0 +1,31 @@
+@(msg: String, pattSearchRes: Seq[PatterSearchCommResultsOneRow])(implicit assetsFinder: AssetsFinder)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pattern Search Title</title>
+    </head>
+    <body>
+      <br>
+            <div>
+                <table border="1" style="border-collapse:collapse">
+                    @for(psr <- pattSearchRes) {
+                        <tr>
+                            <td>@psr.ticker_id</td>
+                            <td>@psr.ticker_code</td>
+                            <td>@psr.ticker_first</td>
+                            <td>@psr.ticker_seconds</td>
+                            <td>@psr.bar_width_sec</td>
+                            <td>@psr.bars_max_ts_end</td>
+                            <td>@psr.patt_ts_begin</td>
+                            <td>@psr.patt_ts_end</td>
+                            <td>@psr.patt_end_c</td>
+                            <td>@psr.ft_log_sum_u</td>
+                            <td>@psr.ft_log_sum_d</td>
+                            <td>@psr.ft_log_sum_n</td>
+                        </tr>
+                    }
+                </table>
+             </div>
+     <hr>
+    </body>
+</html>
