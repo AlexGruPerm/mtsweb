@@ -1,0 +1,30 @@
+div#patt_search_div{
+                    border-style: solid;
+                    border-width: thin;
+                    border-color: red;
+                    width: 50%;
+                    display:table;
+                   }
+
+table#patt_search_main{
+                     border-style: solid;
+                     border-width: medium; /* width of board */
+                     border-color: grey;
+                     border-collapse: collapse;
+                     border-spacing: 0;
+                    }
+
+   td.patts_thead_td{
+                     border-style: solid;
+                     border-width: thin;
+                     border-color: black;
+                    }
+
+ td.patt_search_cell{
+                     border-style: solid;
+                     border-width: thin;
+                     border-color: green;
+                     font-family: serif;
+                     font-size: 80%;
+                     text-align: center;
+                    }

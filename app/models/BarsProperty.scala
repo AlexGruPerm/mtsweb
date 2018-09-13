@@ -11,6 +11,5 @@ case class BarsProperty(tickerId :Int, barWidthSec :Int, cassPrepStmts: CassPrep
                                                                       .map(r => r.getLong("bars_max_ts_end"))
                                                                       .toList.headOption.getOrElse(0.toLong)
 
-
 }
 

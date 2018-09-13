@@ -3,29 +3,54 @@
 <html lang="en">
 <head>
     <title>Pattern Search Title</title>
+    <link rel="stylesheet" media="screen" href="@assetsFinder.path("stylesheets/main_mts.css")">
+    <script src="@assetsFinder.path("javascripts/bars-graph.js")" type="text/javascript"></script>
     </head>
     <body>
-      <br>
-            <div>
-                <table border="1" style="border-collapse:collapse">
-                    @for(psr <- pattSearchRes) {
-                        <tr>
-                            <td>@psr.ticker_id</td>
-                            <td>@psr.ticker_code</td>
-                            <td>@psr.ticker_first</td>
-                            <td>@psr.ticker_seconds</td>
-                            <td>@psr.bar_width_sec</td>
-                            <td>@psr.bars_max_ts_end</td>
-                            <td>@psr.patt_ts_begin</td>
-                            <td>@psr.patt_ts_end</td>
-                            <td>@psr.patt_end_c</td>
-                            <td>@psr.ft_log_sum_u</td>
-                            <td>@psr.ft_log_sum_d</td>
-                            <td>@psr.ft_log_sum_n</td>
-                        </tr>
-                    }
-                </table>
-             </div>
+      <br> <div id="patt_search_div">
+            <table id="patt_search_main">
+                <thead id="patt_search_main_thead">
+                <tr>
+                    <td id="patts_thead_td_ticker_id" class="patts_thead_td">ticker_id</td>
+                    <td id="patts_thead_td_ticker_code" class="patts_thead_td">ticker_code</td>
+                    <td id="patts_thead_td_ticker_first" class="patts_thead_td">ticker_first</td>
+                    <td id="patts_thead_td_ticker_seconds" class="patts_thead_td">ticker_seconds</td>
+                    <td id="patts_thead_td_bar_width_sec" class="patts_thead_td">bar_width_sec</td>
+                    <td id="patts_thead_td_patt_bars_count" class="patts_thead_td">patt_bars_count</td>
+                    <td id="patts_thead_td_bars_max_ts_end" class="patts_thead_td">bars_max_ts_end</td>
+                    <td id="patts_thead_td_patt_ts_begin" class="patts_thead_td">patt_ts_begin</td>
+                    <td id="patts_thead_td_patt_ts_end" class="patts_thead_td">patt_ts_end</td>
+                    <td id="patts_thead_td_diff_sec_bmaxtsend_pattsend" class="patts_thead_td">diff_sec_bmaxtsend_pattsend</td>
+                    <td id="patts_thead_td_patt_end_c" class="patts_thead_td">patt_end_c</td>
+                    <td id="patts_thead_td_ft_log_sum_u" class="patts_thead_td">ft_log_sum_u</td>
+                    <td id="patts_thead_td_ft_log_sum_d" class="patts_thead_td">ft_log_sum_d</td>
+                    <td id="patts_thead_td_ft_log_sum_n" class="patts_thead_td">ft_log_sum_n</td>
+                </tr>
+                </thead>
+                <tbody>
+                @for(psr <- pattSearchRes){
+                    <tr id="patt_search_row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
+                        class="patt_search_row_class"
+                        onmousedown="pattsearch_tr_active(@psr.ticker_id,@psr.bar_width_sec,@psr.patt_bars_count,@psr.bars_max_ts_end)">
+                             <td id="patt_search_ticker_id" class="patt_search_cell">@psr.ticker_id</td>
+                             <td id="patt_search_ticker_code" class="patt_search_cell">@psr.ticker_code</td>
+                             <td id="patt_search_ticker_first" class="patt_search_cell">@psr.ticker_first</td>
+                             <td id="patt_search_ticker_seconds" class="patt_search_cell">@psr.ticker_seconds</td>
+                             <td id="patt_search_bar_width_sec" class="patt_search_cell">@psr.bar_width_sec</td>
+                             <td id="patt_search_patt_bars_count" class="patt_search_cell">@psr.patt_bars_count</td>
+                             <td id="patt_search_bars_max_ts_end" class="patt_search_cell">@psr.bars_max_ts_end</td>
+                             <td id="patt_search_patt_ts_begin" class="patt_search_cell">@psr.patt_ts_begin</td>
+                             <td id="patt_search_patt_ts_end" class="patt_search_cell">@psr.patt_ts_end</td>
+                             <td id="patt_search_diff_sec_bmaxtsend_pattsend" class="patt_search_cell">@psr.diff_sec_bmaxtsend_pattsend</td>
+                             <td id="patt_search_patt_end_c" class="patt_search_cell">@psr.patt_end_c</td>
+                             <td id="patt_search_ft_log_sum_u" class="patt_search_cell">@psr.ft_log_sum_u</td>
+                             <td id="patt_search_ft_log_sum_d" class="patt_search_cell">@psr.ft_log_sum_d</td>
+                             <td id="patt_search_ft_log_sum_n" class="patt_search_cell">@psr.ft_log_sum_n</td>
+                    </tr>
+                }
+                </tbody>
+             </table>
+      </div>
      <hr>
     </body>
 </html>
