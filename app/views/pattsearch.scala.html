@@ -3,6 +3,7 @@
 <html lang="en">
 <head>
     <title>Pattern Search Title</title>
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://api.myjson.com/bins/dbe1s; object-src 'self'">
     <link rel="stylesheet" media="screen" href="@assetsFinder.path("stylesheets/main_mts.css")">
     <script src="@assetsFinder.path("javascripts/bars-graph.js")" type="text/javascript"></script>
     </head>
@@ -29,9 +30,8 @@
                 </thead>
                 <tbody>
                 @for(psr <- pattSearchRes){
-                    <tr id="patt_search_row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
-                        class="patt_search_row_class"
-                        onmousedown="pattsearch_tr_active(@psr.ticker_id,@psr.bar_width_sec,@psr.patt_bars_count,@psr.bars_max_ts_end)">
+                    <tr id="patt-search-row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
+                        class="patt_search_row_class">
                              <td id="patt_search_ticker_id" class="patt_search_cell">@psr.ticker_id</td>
                              <td id="patt_search_ticker_code" class="patt_search_cell">@psr.ticker_code</td>
                              <td id="patt_search_ticker_first" class="patt_search_cell">@psr.ticker_first</td>
@@ -52,5 +52,6 @@
              </table>
       </div>
      <hr>
+     <div id="div-test">div-test text json will be here</div>
     </body>
 </html>

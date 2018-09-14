@@ -24,7 +24,6 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
     Ok(views.html.pattsearch("XXXYYYZZZ",resDS.allRows))
   }
 
-
   @AddCSRFToken
     def  getJsonBarsByTickerWidthDeep(tickerid: Int, barwidthsec :Int, deeplimit:Int, tsend : Long)= Action {
     val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, deeplimit, tsend, cassPrepStmts)).getBars
