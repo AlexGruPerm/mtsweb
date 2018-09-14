@@ -1,30 +1,79 @@
-div#patt_search_div{
-                    border-style: solid;
-                    border-width: thin;
-                    border-color: red;
-                    width: 50%;
-                    display:table;
-                   }
+* {
+    padding: 0;
+    margin: 0;
+}
 
-table#patt_search_main{
-                     border-style: solid;
-                     border-width: medium; /* width of board */
-                     border-color: grey;
+html, body {
+    height: 100%;
+}
+
+div#wdt1000px{
+              width : 90%;
+              }
+
+        div#div-container{
+                 display:flex;
+                 white-space: nowrap;
+                 border-style: solid;
+                 border-width: thin;
+                 border-color: grey;
+                 width:99%;
+                 height:300px;
+                 background: WhiteSmoke;
+                 overflow: scroll;
+                 }
+
+        div#patt-search-div{
+                 flex:1;
+                 overflow: auto;
+                 border:1px solid black;
+                 width:33%;
+                 height:98%;
+                 margin:1px;
+                 background: white;
+                }
+
+        div#bars-graph{
+                 flex:1;
+                 overflow: auto;
+                 border:1px solid black;
+                 width:33%;
+                 height:98%;
+                 margin:1px;
+                 background: white;
+                }
+
+        div#curr-pattern{
+                 flex:1;
+                 overflow: auto;
+                 border:1px solid black;
+                 width:32%;
+                 height:98%;
+                 margin:1px;
+                 background: white;
+                }
+
+
+table#patt-search-main{
                      border-collapse: collapse;
                      border-spacing: 0;
+                     border: 1px solid grey;
+                     margin-right: 20px;
+                     width:100%;
                     }
 
-   td.patts_thead_td{
+   td.patts-thead-td{
                      border-style: solid;
                      border-width: thin;
                      border-color: black;
+                     font-size: 100%;
                     }
 
- td.patt_search_cell{
+ td.patt-search-cell{
                      border-style: solid;
                      border-width: thin;
                      border-color: green;
                      font-family: serif;
-                     font-size: 80%;
+                     font-size: 100%;
                      text-align: center;
                     }

@@ -17,7 +17,7 @@ function ajax_get(url, callback) {
 }
 
 document.addEventListener("DOMContentLoaded", function(){
-var list = document.getElementsByClassName('patt_search_row_class');
+var list = document.getElementsByClassName('patt-search-row-class');
 for (var i = 0; i < list.length; i++) {
      list[i].addEventListener("click",
      function(event){
@@ -46,4 +46,29 @@ for (var i = 0; i < list.length; i++) {
       }
     );
   }
+});
+
+window.addEventListener("load", function(){
+        console.dir("window.addEventListener - Load");
+		var data = getRandomData('April 01 2017', 60);
+		// Candlestick
+		var ctx = document.getElementById("chart1").getContext("2d");
+		//ctx.canvas.width = 350;
+		//ctx.canvas.height = 350;
+		new Chart(ctx, {
+			type: 'candlestick',
+			data: {
+				datasets: [{
+					/*label: "CHRT - Chart.js Corporation",*/
+					data: data,
+					fractionalDigitsCount: 2,
+				}]
+			},
+			options: {
+				tooltips: {
+					position: 'nearest',
+					mode: 'index',
+				},
+			},
+		});
 });

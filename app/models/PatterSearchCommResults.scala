@@ -51,7 +51,7 @@ object PatterSearchCommResults {
 
     val pattSearchLastsDS : Seq[PatterSearchCommResultsOneRow] =
                                                    for (
-                                                        ticker       <- tickersDS;
+                                                        ticker       <- tickersDS/*.filter(t => (t.ticker_id <= 5))*/;
                                                         barProperty  <- barsPropertyDS.filter(bp => bp.tickerId == ticker.ticker_id);
                                                         patSearchRes = PattSearchLasts(barProperty.tickerId,
                                                                                        barProperty.barWidthSec,

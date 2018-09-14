@@ -2,56 +2,74 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Pattern Search Title</title>
-    <meta http-equiv="Content-Security-Policy" content="script-src 'self' https://api.myjson.com/bins/dbe1s; object-src 'self'">
-    <link rel="stylesheet" media="screen" href="@assetsFinder.path("stylesheets/main_mts.css")">
-    <script src="@assetsFinder.path("javascripts/bars-graph.js")" type="text/javascript"></script>
-    </head>
-    <body>
-      <br> <div id="patt_search_div">
-            <table id="patt_search_main">
-                <thead id="patt_search_main_thead">
+        <meta http-equiv="Content-Security-Policy" content="style-src 'self' http://localhost 'unsafe-inline'; script-src 'self' http://localhost 'unsafe-inline';">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pattern Search Title</title>
+        <link rel="stylesheet"  href="http://localhost:9000/assets/stylesheets/main_mts.css">
+        <script src="http://localhost:9000/assets/javascripts/moment.js" type="text/javascript"></script>
+        <script src="http://localhost:9000/assets/javascripts/Chart.js" type="text/javascript"></script>
+        <script src="http://localhost:9000/assets/javascripts/Chart.Financial.js" type="text/javascript"></script>
+        <script src="http://localhost:9000/assets/javascripts/utils.js" type="text/javascript"></script>
+        <script src="http://localhost:9000/assets/javascripts/bars-graph.js" type="text/javascript"></script>
+</head>
+    <body><br><br>
+     <div id="div-container">
+        <div id="patt-search-div"><table id="patt-search-main">
+                <thead id="patt-search-main-thead">
                 <tr>
-                    <td id="patts_thead_td_ticker_id" class="patts_thead_td">ticker_id</td>
-                    <td id="patts_thead_td_ticker_code" class="patts_thead_td">ticker_code</td>
-                    <td id="patts_thead_td_ticker_first" class="patts_thead_td">ticker_first</td>
-                    <td id="patts_thead_td_ticker_seconds" class="patts_thead_td">ticker_seconds</td>
-                    <td id="patts_thead_td_bar_width_sec" class="patts_thead_td">bar_width_sec</td>
-                    <td id="patts_thead_td_patt_bars_count" class="patts_thead_td">patt_bars_count</td>
-                    <td id="patts_thead_td_bars_max_ts_end" class="patts_thead_td">bars_max_ts_end</td>
-                    <td id="patts_thead_td_patt_ts_begin" class="patts_thead_td">patt_ts_begin</td>
-                    <td id="patts_thead_td_patt_ts_end" class="patts_thead_td">patt_ts_end</td>
-                    <td id="patts_thead_td_diff_sec_bmaxtsend_pattsend" class="patts_thead_td">diff_sec_bmaxtsend_pattsend</td>
-                    <td id="patts_thead_td_patt_end_c" class="patts_thead_td">patt_end_c</td>
-                    <td id="patts_thead_td_ft_log_sum_u" class="patts_thead_td">ft_log_sum_u</td>
-                    <td id="patts_thead_td_ft_log_sum_d" class="patts_thead_td">ft_log_sum_d</td>
-                    <td id="patts_thead_td_ft_log_sum_n" class="patts_thead_td">ft_log_sum_n</td>
+                    <td id="patts-thead-td_ticker_id" class="patts-thead-td">ticker_id</td>
+                    <td id="patts-thead-td_ticker_code" class="patts-thead-td">ticker_code</td>
+                    <td id="patts-thead-td_ticker_first" class="patts-thead-td">ticker_first</td>
+                    <td id="patts-thead-td_ticker_seconds" class="patts-thead-td">ticker_seconds</td>
+                    <td id="patts-thead-td_bar_width_sec" class="patts-thead-td">bar_width_sec</td>
+                    <td id="patts-thead-td_patt_bars_count" class="patts-thead-td">patt_bars_count</td>
+                    <td id="patts-thead-td_bars_max_ts_end" class="patts-thead-td">bars_max_ts_end</td>
+                    <td id="patts-thead-td_patt_ts_begin" class="patts-thead-td">patt_ts_begin</td>
+                    <td id="patts-thead-td_patt_ts_end" class="patts-thead-td">patt_ts_end</td>
+                    <td id="patts-thead-td_diff_sec_bmaxtsend_pattsend" class="patts-thead-td">diff_sec_bmaxtsend_pattsend</td>
+                    <td id="patts-thead-td_patt_end_c" class="patts-thead-td">patt_end_c</td>
+                    <td id="patts-thead-td_ft_log_sum_u" class="patts-thead-td">ft_log_sum_u</td>
+                    <td id="patts-thead-td_ft_log_sum_d" class="patts-thead-td">ft_log_sum_d</td>
+                    <td id="patts-thead-td_ft_log_sum_n" class="patts-thead-td">ft_log_sum_n</td>
                 </tr>
                 </thead>
                 <tbody>
                 @for(psr <- pattSearchRes){
                     <tr id="patt-search-row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
-                        class="patt_search_row_class">
-                             <td id="patt_search_ticker_id" class="patt_search_cell">@psr.ticker_id</td>
-                             <td id="patt_search_ticker_code" class="patt_search_cell">@psr.ticker_code</td>
-                             <td id="patt_search_ticker_first" class="patt_search_cell">@psr.ticker_first</td>
-                             <td id="patt_search_ticker_seconds" class="patt_search_cell">@psr.ticker_seconds</td>
-                             <td id="patt_search_bar_width_sec" class="patt_search_cell">@psr.bar_width_sec</td>
-                             <td id="patt_search_patt_bars_count" class="patt_search_cell">@psr.patt_bars_count</td>
-                             <td id="patt_search_bars_max_ts_end" class="patt_search_cell">@psr.bars_max_ts_end</td>
-                             <td id="patt_search_patt_ts_begin" class="patt_search_cell">@psr.patt_ts_begin</td>
-                             <td id="patt_search_patt_ts_end" class="patt_search_cell">@psr.patt_ts_end</td>
-                             <td id="patt_search_diff_sec_bmaxtsend_pattsend" class="patt_search_cell">@psr.diff_sec_bmaxtsend_pattsend</td>
-                             <td id="patt_search_patt_end_c" class="patt_search_cell">@psr.patt_end_c</td>
-                             <td id="patt_search_ft_log_sum_u" class="patt_search_cell">@psr.ft_log_sum_u</td>
-                             <td id="patt_search_ft_log_sum_d" class="patt_search_cell">@psr.ft_log_sum_d</td>
-                             <td id="patt_search_ft_log_sum_n" class="patt_search_cell">@psr.ft_log_sum_n</td>
+                        class="patt-search-row-class">
+                             <td id="patt-search-ticker_id" class="patt-search-cell">@psr.ticker_id</td>
+                             <td id="patt-search-ticker_code" class="patt-search-cell">@psr.ticker_code</td>
+                             <td id="patt-search-ticker_first" class="patt-search-cell">@psr.ticker_first</td>
+                             <td id="patt-search-ticker_seconds" class="patt-search-cell">@psr.ticker_seconds</td>
+                             <td id="patt-search-bar_width_sec" class="patt-search-cell">@psr.bar_width_sec</td>
+                             <td id="patt-search-patt_bars_count" class="patt-search-cell">@psr.patt_bars_count</td>
+                             <td id="patt-search-bars_max_ts_end" class="patt-search-cell">@psr.bars_max_ts_end</td>
+                             <td id="patt-search-patt_ts_begin" class="patt-search-cell">@psr.patt_ts_begin</td>
+                             <td id="patt-search-patt_ts_end" class="patt-search-cell">@psr.patt_ts_end</td>
+                             <td id="patt-search-diff_sec_bmaxtsend_pattsend" class="patt-search-cell">@psr.diff_sec_bmaxtsend_pattsend</td>
+                             <td id="patt-search-patt_end_c" class="patt-search-cell">@psr.patt_end_c</td>
+                             <td id="patt-search-ft_log_sum_u" class="patt-search-cell">@psr.ft_log_sum_u</td>
+                             <td id="patt-search-ft_log_sum_d" class="patt-search-cell">@psr.ft_log_sum_d</td>
+                             <td id="patt-search-ft_log_sum_n" class="patt-search-cell">@psr.ft_log_sum_n</td>
                     </tr>
                 }
                 </tbody>
              </table>
-      </div>
-     <hr>
+        </div>
+        <div id="bars-graph">
+     	  <div class="content">
+		    <div id="wdt1000px">
+			  <canvas id="chart1"></canvas>
+		    </div>
+		  </div>
+        </div>
+        <div id="curr-pattern">33333
+        </div>
+     </div>
+
+     <br><br><br><br>
      <div id="div-test">div-test text json will be here</div>
+
+	</div>
     </body>
 </html>
