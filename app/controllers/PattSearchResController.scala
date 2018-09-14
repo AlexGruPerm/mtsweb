@@ -3,7 +3,7 @@ package controllers
 import javax.inject._
 import models.{BarSimple, BarsReaderSimple, CassPreparedStmt, PatterSearchCommResults}
 import play.api.Logger
-import play.api.libs.json.{Json, Writes}
+import play.api.libs.json._
 import play.api.mvc._
 import play.filters.csrf.AddCSRFToken
 
@@ -28,14 +28,49 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
     def  getJsonBarsByTickerWidthDeep(tickerid: Int, barwidthsec :Int, deeplimit:Int, tsend : Long)= Action {
     val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, deeplimit, tsend, cassPrepStmts)).getBars
     implicit val residentWrites = new Writes[BarSimple] {
-      def writes(bar: BarSimple) = Json.obj(
-        "x" -> ("new Date("+bar.getYear+", "+bar.getMonth+", "+bar.getDay+")"),
-                "y" -> (bar.o, bar.h, bar.l, bar.c)
-      )
+
+      def writes(bar: BarSimple) =
+                              Json.obj(
+                                "ts_end" -> bar.ts_end,
+                                        "c" -> bar.c
+                               )
     }
-    Ok(Json.toJson(bars))
+
+    val barsJsonArr = Json.toJson(bars)
+
+    val jres =Json.obj(
+      "tickerID" -> tickerid.toString,
+      "data" -> barsJsonArr
+    )
+
+    Ok(jres)
   }
 
+/*----------------------------------*/
+/*
+  val json: JsValue = Json.obj(
+    "name" -> "Watership Down",
+    "location" -> Json.obj("lat" -> 51.235685, "long" -> -1.309197),
+    "residents" -> Json.arr(
+      Json.obj(
+        "name" -> "Fiver",
+        "age" -> 4,
+        "role" -> JsNull
+      ),
+      Json.obj(
+        "name" -> "Bigwig",
+        "age" -> 6,
+        "role" -> "Owsla"
+      )
+    )
+  )
+
+  {
+    "label": "Japan",
+    "data": [[1999, -0.1], [2000, 2.9], [2001, 0.2], [2002, 0.3], [2003, 1.4], [2004, 2.7], [2005, 1.9], [2006, 2.0], [2007, 2.3], [2008, -0.7]]
+  }
+*/
+/*--------------------------------*/
 
 }
 
