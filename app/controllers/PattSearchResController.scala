@@ -26,21 +26,17 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
 
   @AddCSRFToken
     def  getJsonBarsByTickerWidthDeep(tickerid: Int, barwidthsec :Int, deeplimit:Int, tsend : Long)= Action {
-    val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, deeplimit, tsend, cassPrepStmts)).getBars
-    implicit val residentWrites = new Writes[BarSimple] {
+    val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, 20/*deeplimit*/, tsend, cassPrepStmts)).getBars
 
-      def writes(bar: BarSimple) =
-                              Json.obj(
-                                "ts_end" -> bar.ts_end,
-                                        "c" -> bar.c
-                               )
+    implicit val residentWrites = new Writes[BarSimple] {
+      def writes(bar: BarSimple) = Json.toJson(bar.getTsEndFull,bar.c)
     }
 
-    val barsJsonArr = Json.toJson(bars)
+    //val barsJsonArr = bars
 
     val jres =Json.obj(
-      "tickerID" -> tickerid.toString,
-      "data" -> barsJsonArr
+      "label" -> (resDS.allRows.filter(r => r.ticker_id==tickerid).map(r => r.ticker_code).head+" bws="+barwidthsec.toString),
+             "data" -> bars.take(deeplimit)
     )
 
     Ok(jres)
@@ -64,11 +60,6 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
       )
     )
   )
-
-  {
-    "label": "Japan",
-    "data": [[1999, -0.1], [2000, 2.9], [2001, 0.2], [2002, 0.3], [2003, 1.4], [2004, 2.7], [2005, 1.9], [2006, 2.0], [2007, 2.3], [2008, -0.7]]
-  }
 */
 /*--------------------------------*/
 
