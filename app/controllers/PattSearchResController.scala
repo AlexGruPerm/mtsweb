@@ -14,12 +14,13 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
   val client = new CassClient("127.0.0.1")
   val cassPrepStmts = new CassPreparedStmt(client.session)
 
+  val commDS = commonDataSets(cassPrepStmts)
 
   Logger.info("Instance PattSearchResController Singleton")
 
   @AddCSRFToken
   def showPattSearchResults = Action {
-    val resDS = PatterSearchCommResults(cassPrepStmts)
+    val resDS = PatterSearchCommResults(commDS.tickersDS, commDS.barsPropertyDS, cassPrepStmts)
     Logger.info("PattSearchResController resDS.allRows.size="+resDS.allRows.size)
     //rewrite with TABLE ON DIVS: https://html-cleaner.com/features/replace-html-table-tags-with-divs
     Ok(views.html.pattsearch("XXXYYYZZZ",resDS.allRows))
