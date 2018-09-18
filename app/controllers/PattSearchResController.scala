@@ -13,12 +13,13 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
 
   val client = new CassClient("127.0.0.1")
   val cassPrepStmts = new CassPreparedStmt(client.session)
-  val resDS = PatterSearchCommResults(cassPrepStmts)
 
-  Logger.info("We are here")
+
+  Logger.info("Instance PattSearchResController Singleton")
 
   @AddCSRFToken
   def showPattSearchResults = Action {
+    val resDS = PatterSearchCommResults(cassPrepStmts)
     Logger.info("PattSearchResController resDS.allRows.size="+resDS.allRows.size)
     //rewrite with TABLE ON DIVS: https://html-cleaner.com/features/replace-html-table-tags-with-divs
     Ok(views.html.pattsearch("XXXYYYZZZ",resDS.allRows))
@@ -26,7 +27,9 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
 
   @AddCSRFToken
     def  getJsonBarsByTickerWidthDeep(tickerid: Int, barwidthsec :Int, deeplimit:Int, tsend : Long)= Action {
-    val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, 20/*deeplimit*/, tsend, cassPrepStmts)).getBars
+    val bars :Seq[BarSimple] = (new BarsReaderSimple(tickerid, barwidthsec, deeplimit*2, tsend, cassPrepStmts)).getBars
+
+    Logger.info("getJsonBarsByTickerWidthDeep bars.size="+bars.size)
 
     implicit val residentWrites = new Writes[BarSimple] {
       def writes(bar: BarSimple) = Json.toJson(bar.getTsEndFull,bar.c)
@@ -35,9 +38,11 @@ class PattSearchResController @Inject()(cc: ControllerComponents)(implicit asset
     //val barsJsonArr = bars
 
     val jres =Json.obj(
-      "label" -> (resDS.allRows.filter(r => r.ticker_id==tickerid).map(r => r.ticker_code).head+" bws="+barwidthsec.toString),
-             "data" -> bars.take(deeplimit)
+      "label" -> ("TICKER_ID="+tickerid),/*(resDS.allRows.filter(r => r.ticker_id==tickerid).map(r => r.ticker_code).head+" bws="+barwidthsec.toString)*/
+             "data" -> bars.take(deeplimit*2) // Here deeplimit takes only last deeplimit rows from all DataSet.
     )
+
+    Logger.info(jres.toString())
 
     Ok(jres)
   }

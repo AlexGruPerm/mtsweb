@@ -16,8 +16,7 @@
         <div id="patt-search-div"><table id="patt-search-main">
                 <thead id="patt-search-main-thead">
                 <tr>
-                    <td id="patts-thead-td_ticker_id" class="patts-thead-td">ticker_id</td>
-                    <td id="patts-thead-td_ticker_code" class="patts-thead-td">ticker_code</td>
+                    <td id="patts-thead-td_ticker_id" class="patts-thead-td">[ticker] Symbol</td>
                     <td id="patts-thead-td_ticker_first" class="patts-thead-td">ticker_first</td>
                     <td id="patts-thead-td_ticker_seconds" class="patts-thead-td">ticker_seconds</td>
                     <td id="patts-thead-td_bar_width_sec" class="patts-thead-td">bar_width_sec</td>
@@ -36,10 +35,11 @@
                 @for(psr <- pattSearchRes){
                     <tr id="patt-search-row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
                         class="patt-search-row-class">
-                             <td id="patt-search-ticker_id" class="patt-search-cell">@psr.ticker_id</td>
-                             <td id="patt-search-ticker_code" class="patt-search-cell">@psr.ticker_code</td>
-                             <td id="patt-search-ticker_first" class="patt-search-cell">@psr.ticker_first</td>
-                             <td id="patt-search-ticker_seconds" class="patt-search-cell">@psr.ticker_seconds</td>
+                           @if(psr.ord_rn_byticker==1) {
+                             <td id="patt-search-ticker_id_"@psr.ticker_id class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">[@psr.ticker_id] @psr.ticker_code</td>
+                             <td id="patt-search-ticker_first" class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">@psr.ticker_first</td>
+                             <td id="patt-search-ticker_seconds" class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">@psr.ticker_seconds</td>
+                           }
                              <td id="patt-search-bar_width_sec" class="patt-search-cell">@psr.bar_width_sec</td>
                              <td id="patt-search-patt_bars_count" class="patt-search-cell">@psr.patt_bars_count</td>
                              <td id="patt-search-bars_max_ts_end" class="patt-search-cell">@psr.bars_max_ts_end</td>
