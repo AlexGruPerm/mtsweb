@@ -1,0 +1,73 @@
+@(msg: String, pattSearchRes: Seq[PatterSearchCommResultsOneRow])(implicit assetsFinder: AssetsFinder)
+<!DOCTYPE html>
+<html lang="en">
+<head>
+        <meta http-equiv="Content-Security-Policy" content="style-src 'self' http://localhost 'unsafe-inline'; script-src 'self' http://localhost 'unsafe-inline';">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Pattern Search Title</title>
+        <link rel="stylesheet"  href="http://localhost:9000/assets/stylesheets/main_mts.css">
+        <script language="javascript" type="text/javascript" src="http://localhost:9000/assets/javascripts/jquery.js"></script>
+        <script language="javascript" type="text/javascript" src="http://localhost:9000/assets/javascripts/jquery.flot.js"></script>
+        <script language="javascript" type="text/javascript" src="http://localhost:9000/assets/javascripts/jquery.flot.time.js"></script>
+        <script src="http://localhost:9000/assets/javascripts/bars-graph.js" type="text/javascript"></script>
+</head>
+    <body><br><br>
+     <div id="div-container">
+        <div id="patt-search-div"><table id="patt-search-main">
+                <thead id="patt-search-main-thead">
+                <tr>
+                    <td id="patts-thead-td_ticker_id" class="patts-thead-td">[ticker] Symbol</td>
+                    <td id="patts-thead-td_ticker_first" class="patts-thead-td">ticker_first</td>
+                    <td id="patts-thead-td_ticker_seconds" class="patts-thead-td">ticker_seconds</td>
+                    <td id="patts-thead-td_bar_width_sec" class="patts-thead-td">bar_width_sec</td>
+                    <td id="patts-thead-td_patt_bars_count" class="patts-thead-td">patt_bars_count</td>
+                    <td id="patts-thead-td_bars_max_ts_end" class="patts-thead-td">bars_max_ts_end</td>
+                    <td id="patts-thead-td_patt_ts_begin" class="patts-thead-td">patt_ts_begin</td>
+                    <td id="patts-thead-td_patt_ts_end" class="patts-thead-td">patt_ts_end</td>
+                    <td id="patts-thead-td_diff_sec_bmaxtsend_pattsend" class="patts-thead-td">diff_sec_bmaxtsend_pattsend</td>
+                    <td id="patts-thead-td_patt_end_c" class="patts-thead-td">patt_end_c</td>
+                    <td id="patts-thead-td_ft_log_sum_u" class="patts-thead-td">ft_log_sum_u</td>
+                    <td id="patts-thead-td_ft_log_sum_d" class="patts-thead-td">ft_log_sum_d</td>
+                    <td id="patts-thead-td_ft_log_sum_n" class="patts-thead-td">ft_log_sum_n</td>
+                </tr>
+                </thead>
+                <tbody>
+                @for(psr <- pattSearchRes){
+                    <tr id="patt-search-row-@psr.ticker_id-@psr.bar_width_sec-@psr.patt_bars_count-@psr.bars_max_ts_end"
+                        class="patt-search-row-class">
+                           @if(psr.ord_rn_byticker==1) {
+                             <td id="patt-search-ticker_id_"@psr.ticker_id class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">[@psr.ticker_id] @psr.ticker_code</td>
+                             <td id="patt-search-ticker_first" class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">@psr.ticker_first</td>
+                             <td id="patt-search-ticker_seconds" class="patt-search-cell" rowspan="@psr.cnt_rows_bticker">@psr.ticker_seconds</td>
+                           }
+                             <td id="patt-search-bar_width_sec" class="patt-search-cell">@psr.bar_width_sec</td>
+                             <td id="patt-search-patt_bars_count" class="patt-search-cell">@psr.patt_bars_count</td>
+                             <td id="patt-search-bars_max_ts_end" class="patt-search-cell">@psr.bars_max_ts_end</td>
+                             <td id="patt-search-patt_ts_begin" class="patt-search-cell">@psr.patt_ts_begin</td>
+                             <td id="patt-search-patt_ts_end" class="patt-search-cell">@psr.patt_ts_end</td>
+                             <td id="patt-search-diff_sec_bmaxtsend_pattsend" class="patt-search-cell">@psr.diff_sec_bmaxtsend_pattsend</td>
+                             <td id="patt-search-patt_end_c" class="patt-search-cell">@psr.patt_end_c</td>
+                             <td id="patt-search-ft_log_sum_u" class="patt-search-cell">@psr.ft_log_sum_u</td>
+                             <td id="patt-search-ft_log_sum_d" class="patt-search-cell">@psr.ft_log_sum_d</td>
+                             <td id="patt-search-ft_log_sum_n" class="patt-search-cell">@psr.ft_log_sum_n</td>
+                    </tr>
+                }
+                </tbody>
+             </table>
+        </div>
+        <div id="bars-graph">
+            <div class="demo-container">
+                <div id="placeholder" class="demo-placeholder"></div>
+            </div>
+        </div>
+        <div id="curr-pattern">
+         123
+        </div>
+     </div>
+
+     <br><br><br><br>
+     <div id="div-test">div-test text json will be here</div>
+
+	</div>
+    </body>
+</html>

@@ -11,7 +11,7 @@ import play.filters.csrf.AddCSRFToken
 class PattSearchResController @Inject()(cc: ControllerComponents)(implicit assetsFinder: AssetsFinder)
   extends AbstractController(cc) {
 
-  val client = new CassClient("127.0.0.1")
+  val client = new CassClient("10.241.5.234")
   val cassPrepStmts = new CassPreparedStmt(client.session)
 
   val commDS = commonDataSets(cassPrepStmts)

@@ -7,6 +7,7 @@ GET     /getbars/:tickerid/:barwidthsec/:deeplimit/:tsend  controllers.PattSearc
 GET     /count                                             controllers.CountController.count
 GET     /message                                           controllers.AsyncController.message
 GET     /bars                                              controllers.BarsController.bars
+GET     /armdata                                           controllers.ArmDataController.getData
 + nocsrf
 POST    /bars                                              controllers.BarsController.newTask
 GET     /assets/*file                                      controllers.Assets.versioned(file)
