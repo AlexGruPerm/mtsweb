@@ -2,6 +2,7 @@ package controllers
 
 import anorm.{RowParser, SQL, SqlParser}
 import javax.inject._
+import javax.script.ScriptException
 import play.api.Logger
 import play.api.db.Database
 import play.api.mvc._
@@ -81,11 +82,32 @@ class ArmDataController @Inject()(db: Database, val controllerComponents: Contro
         .withResultSetOnFirstRow(true).executeQuery()
     */
 
-      SQL("EXEC PKG_ARM_STRUCT.set_context_variables(37159,3,15,20181201,20171201,9,5,300,null)")
-        .executeQuery()
 
-    val parsedRes:  List[Map[String, Any]] = SQL("select pkg_arm_data.f_get_data from dual").as(rowParser.*)
+    val sidInit:  List[Map[String, Any]] = SQL("select distinct sid from v$mystat").as(rowParser.*)
+    Logger.info(">>>>>>>>>>> sidInit="+sidInit)
+
+
+    val rContext /*: SqlQueryResult*/ =  SQL("BEGIN PKG_ARM_STRUCT.set_context_variables(37159,3,15,20181201,20171201,9,5,300,null); END;").withResultSetOnFirstRow(true)
+        //.executeQuery()
+
+
+    val sidFirst:  List[Map[String, Any]] = SQL("select distinct sid from v$mystat").as(rowParser.*)
+    Logger.info(">>>>>>>>>>> sid after set_context_variables="+sidFirst)
+
+
+    try {
+      val parsedRes: List[Map[String, Any]] = SQL("select pkg_arm_data.f_get_data from dual").as(rowParser.*)
+    } catch {
+    case e: ScriptException => e.printStackTrace
   }
+
+
+    val sidSeconds:  List[Map[String, Any]] = SQL("select distinct sid from v$mystat").as(rowParser.*)
+    Logger.info(">>>>>>>>>>> sid after ="+sidSeconds)
+
+  }
+
+
 
 
   @AddCSRFToken
